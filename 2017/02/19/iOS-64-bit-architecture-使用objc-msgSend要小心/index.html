@@ -87,16 +87,19 @@
 
 
 
-<meta name="description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you a">
+<meta name="description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+1234567891011121314151617181920212223242526Dispatch Objective-C Messages Using the Method Function’s Prototype An exception to the c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 64-bit architecture 使用objc_msgSend要小心">
 <meta property="og:url" content="http://yoursite.com/2017/02/19/iOS-64-bit-architecture-使用objc-msgSend要小心/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you a">
-<meta property="og:updated_time" content="2017-02-19T05:44:21.000Z">
+<meta property="og:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+1234567891011121314151617181920212223242526Dispatch Objective-C Messages Using the Method Function’s Prototype An exception to the c">
+<meta property="og:updated_time" content="2017-02-19T05:45:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 64-bit architecture 使用objc_msgSend要小心">
-<meta name="twitter:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you a">
+<meta name="twitter:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+1234567891011121314151617181920212223242526Dispatch Objective-C Messages Using the Method Function’s Prototype An exception to the c">
 
 
 
@@ -196,7 +199,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -206,7 +209,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -286,7 +289,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-19T13:35:19+08:00">
                 2017-02-19
@@ -324,11 +327,8 @@
       
 
       
-        <p>在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html" target="_blank" rel="external">here</a><br>&gt;<br>Dispatch Objective-C Messages Using the Method Function’s Prototype An<br>exception to the casting rule described above is when you are calling<br>the objc_msgSend function or any other similar functions in the<br>Objective-C runtime that send messages. Although the prototype for the<br>message functions has a variadic form, the method function that is<br>called by the Objective-C runtime does not share the same prototype.<br>The Objective-C runtime directly dispatches to the function that<br>implements the method, so the calling conventions are mismatched, as<br>described previously. Therefore you must cast the objc_msgSend<br>function to a prototype that matches the method function being called.<br>Listing 2-14 shows the proper form for dispatching a message to an<br>object using the low-level message functions. In this example, the<br>doSomething: method takes a single parameter and does not have a<br>variadic form. It casts the objc_msgSend function using the prototype<br>of the method function. Note that a method function always takes an id<br>variable and a selector as its first two parameters. After the<br>objc_msgSend function is cast to a function pointer, the call is<br>dispatched through that same function pointer.<br>Listing 2-14 Using a cast to call the Objective-C message sending<br>functions </p>
-<ul>
-<li>(int) doSomething:(int) x { … } </li>
-<li>(void) doSomethingElse {<br>int (action)(id, SEL, int) = (int ()(id, SEL, int)) objc_msgSend;<br>action(self, @selector(doSomething:), 0); }</li>
-</ul>
+        <p>在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html" target="_blank" rel="external">here</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">Dispatch Objective-C Messages Using the Method Function’s Prototype An </div><div class="line">exception to the casting rule described above is when you are calling </div><div class="line">the objc_msgSend function or any other similar functions in the </div><div class="line">Objective-C runtime that send messages. Although the prototype for the </div><div class="line">message functions has a variadic form, the method function that is </div><div class="line">called by the Objective-C runtime does not share the same prototype. </div><div class="line">The Objective-C runtime directly dispatches to the function that </div><div class="line">implements the method, so the calling conventions are mismatched, as </div><div class="line">described previously. Therefore you must cast the objc_msgSend </div><div class="line">function to a prototype that matches the method function being called.</div><div class="line"></div><div class="line">Listing 2-14 shows the proper form for dispatching a message to an </div><div class="line">object using the low-level message functions. In this example, the </div><div class="line">doSomething: method takes a single parameter and does not have a </div><div class="line">variadic form. It casts the objc_msgSend function using the prototype </div><div class="line">of the method function. Note that a method function always takes an id </div><div class="line">variable and a selector as its first two parameters. After the </div><div class="line">objc_msgSend function is cast to a function pointer, the call is </div><div class="line">dispatched through that same function pointer.</div><div class="line"></div><div class="line">Listing 2-14 Using a cast to call the Objective-C message sending </div><div class="line">functions </div><div class="line">- (int) doSomething:(int) x &#123; … &#125; </div><div class="line">- (void) doSomethingElse &#123; </div><div class="line">int (action)(id, SEL, int) = (int ()(id, SEL, int)) objc_msgSend; </div><div class="line">action(self, @selector(doSomething:), 0); &#125;</div></pre></td></tr></table></figure>
 <p>大致就是，OBJC_EXPORT id objc_msgSend(id self, SEL op, …)最后的参数需要声明类型，所以使用应该像这样</p>
 <p>&gt;<br>void (<em>objcMsgSend)(id,SEL,id) = (void </em>)objc_msgSend;<br>objcMsgSend(plugin, selector, cmd);</p>
 
@@ -433,7 +433,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -485,7 +485,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
