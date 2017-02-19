@@ -87,12 +87,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 64-bit architecture 使用objc_msgSend要小心">
+<meta property="og:url" content="http://yoursite.com/2017/02/19/iOS-64-bit-architecture-使用objc-msgSend要小心/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you">
+<meta property="og:updated_time" content="2017-02-19T05:39:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="iOS 64-bit architecture 使用objc_msgSend要小心">
+<meta name="twitter:description" content="在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档here
+&amp;gt;Dispatch Objective-C Messages Using the Method Function’s Prototype Anexception to the casting rule described above is when you">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/19/iOS-64-bit-architecture-使用objc-msgSend要小心/"/>
 
 
 
 
 
-  <title> Hexo </title>
+  <title> iOS 64-bit architecture 使用objc_msgSend要小心 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -151,9 +158,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,9 +241,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -271,10 +276,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/02/19/iOS-64-bit-architecture-使用objc-msgSend要小心/" itemprop="url">
-                  iOS 64-bit architecture 使用objc_msgSend要小心
-                </a>
+                iOS 64-bit architecture 使用objc_msgSend要小心
               
             
           </h1>
@@ -325,9 +327,7 @@
       
 
       
-        
-          
-            <p>在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html" target="_blank" rel="external">here</a></p>
+        <p>在iOS64-bit下，使用objc_msgSend直接调用方法会造成崩溃，报错xc_bad_access，具体原因看苹果文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaTouch64BitGuide/ConvertingYourAppto64-Bit/ConvertingYourAppto64-Bit.html" target="_blank" rel="external">here</a></p>
 <p>&gt;<br>Dispatch Objective-C Messages Using the Method Function’s Prototype An<br>exception to the casting rule described above is when you are calling<br>the objc_msgSend function or any other similar functions in the<br>Objective-C runtime that send messages. Although the prototype for the<br>message functions has a variadic form, the method function that is<br>called by the Objective-C runtime does not share the same prototype.<br>The Objective-C runtime directly dispatches to the function that<br>implements the method, so the calling conventions are mismatched, as<br>described previously. Therefore you must cast the objc_msgSend<br>function to a prototype that matches the method function being called.<br>&gt;<br>Listing 2-14 shows the proper form for dispatching a message to an<br>object using the low-level message functions. In this example, the<br>doSomething: method takes a single parameter and does not have a<br>variadic form. It casts the objc_msgSend function using the prototype<br>of the method function. Note that a method function always takes an id<br>variable and a selector as its first two parameters. After the<br>objc_msgSend function is cast to a function pointer, the call is<br>dispatched through that same function pointer.<br>&gt;<br>Listing 2-14 Using a cast to call the Objective-C message sending<br>functions </p>
 <ul>
 <li>(int) doSomething:(int) x { … } </li>
@@ -336,16 +336,20 @@
 <p>大致就是，OBJC_EXPORT id objc_msgSend(id self, SEL op, …)最后的参数需要声明类型，所以使用应该像这样</p>
 <p>&gt;<br>void (<em>objcMsgSend)(id,SEL,id) = (void </em>)objc_msgSend;<br>objcMsgSend(plugin, selector, cmd);</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -354,142 +358,38 @@
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/19/初来乍到/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="John Doe">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Hexo">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Hexo" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/19/初来乍到/" rel="next" title="初来乍到">
+                <i class="fa fa-chevron-left"></i> 初来乍到
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2017/02/19/初来乍到/" itemprop="url">
-                  初来乍到
-                </a>
-              
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-19T13:06:13+08:00">
-                2017-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>边走边记</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -497,6 +397,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -660,6 +564,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
